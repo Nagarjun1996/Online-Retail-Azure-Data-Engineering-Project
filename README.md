@@ -22,16 +22,11 @@ Each directory corresponds to a different service in the pipeline: `assets/` con
 
 # 2) End-to-End Flow
 
-<img src="azure-online-retail-lakehouse/assets/Data Factory-1.png" alt="Pipeline">
-
-<img src="azure-online-retail-lakehouse/assets/Data Factory-2.png" alt="Pipeline">
-
-
 Ingest the Excel data into the **Bronze** layer. The ADF pipeline copies each Excel worksheet into ADLS Gen2 as a separate CSV file (Bronze). A combination of **Get Metadata** and **ForEach** (or an index-based **Until** loop) is used to dynamically iterate through each worksheet in the Excel file, ensuring all sheets are processed.
 
 ## Transform (Databricks)
 
-Process and clean data in the Bronze layer and create the **Silver/Gold** layers. Databricks reads the raw CSV files from Bronze, standardizes the schema, cleans the data, and adds any derived fields. The refined data is then written in **Delta Lake** format to the Silver layer. Next, further aggregations and business-level transformations are performed on Silver data to produce **Gold** datasets (also stored as Delta).
+Process and clean data in the Bronze layer and create the **Silver/Gold** layers. Databricks reads the raw CSV files from Bronze, standardizes the schema, cleans the data, and adds any derived fields. The refined data is then written in **Parquet** format to the Silver layer. Next, further aggregations and business-level transformations are performed on Silver data to produce **Gold** datasets stored in **Delta**.
 
 ## Serve (Synapse Serverless SQL)
 
@@ -45,17 +40,19 @@ Connect Power BI to the Synapse external tables. Using the provided `.pbids` fil
 
 Define consistent storage paths for the **Bronze**, **Silver**, and **Gold** layers across all services (ADF, Databricks, Synapse). Set these base paths once and use them throughout:
 
-- **Bronze:** `r params$bronze_path`  
-- **Silver:** `r params$silver_path`  
-- **Gold:** `r params$gold_path`
+- **Bronze:** `bronze@onlineretail96`  
+- **Silver:** `silver@onlineretail96`  
+- **Gold:** `gold@onlineretail96`
 
-Use the same container and account names in ADF linked services, Databricks notebooks (e.g., in `00_config.py`), and Synapse SQL scripts to avoid inconsistencies.
+Use the same container and account names in ADF linked services, Databricks notebooks, and Synapse SQL scripts to avoid inconsistencies.
 
 # 4) Deploy
 
 ## A) Azure Data Factory (ADF)
 
-**Import Pipeline Template:** Import `adf/pipelines/Excel_to_CSV_ExcelSheets.template.json` to copy Excel sheets to CSV (leveraging **Get Metadata** + **ForEach** + **Copy**).
+<img src="azure-online-retail-lakehouse/assets/Data Factory-1.png" alt="Pipeline">
+
+<img src="azure-online-retail-lakehouse/assets/Data Factory-2.png" alt="Pipeline">
 
 **Configure Linked Services:**  
 - **Sink:** AzureBlobFS linked service to ADLS Gen2.  
