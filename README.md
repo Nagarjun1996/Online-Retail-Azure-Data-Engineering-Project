@@ -81,6 +81,9 @@ Ensure schemas match your Excel file.
 
 ## C) Azure Synapse Analytics (Serverless SQL)
 
+<img src="azure-online-retail-lakehouse/assets/Synapse-1.png" alt="Synapse">
+<img src="azure-online-retail-lakehouse/assets/synpase-2.png" alt = "synapse">
+
 **Open Synapse Studio:** Create a new serverless SQL script.
 
 **Create External Objects:** Run `synapse/sql/01_external_objects.sql` to create:
@@ -121,7 +124,7 @@ Treat all components as code:
 
 Externalize environment settings:
 - Use **Key Vault**, ADF global parameters, or Databricks init scripts.
-- Centralize paths/secrets (e.g., in `00_config.py`).
+- Centralize paths/secrets.
 - Avoid hard-coding container/account names.
 
 ## Security & Secrets Management
@@ -165,7 +168,7 @@ Automate end-to-end:
 
 # 7) Credits
 
-Acknowledgments: Architecture design and screenshots were produced during development of this project. Dataset: **UCI Machine Learning Repository — Online Retail** (`r params$dataset_url`). Replace all example secrets/IDs with your own values and never commit sensitive information. All trademarks (Azure, Databricks, etc.) belong to their respective owners.
+Acknowledgments: Architecture design and screenshots were produced during development of this project. Dataset: **UCI Machine Learning Repository — Online Retail** (`https://archive.ics.uci.edu/static/public/502/online+retail+ii.zip`). Replace all example secrets/IDs with your own values and never commit sensitive information. All trademarks (Azure, Databricks, etc.) belong to their respective owners.
 
 All content is provided under the project’s LICENSE. This documentation was prepared to aid in understanding and deploying the Azure Medallion Lakehouse for the Online Retail scenario in a professional setting.
 
