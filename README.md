@@ -65,20 +65,17 @@ Ensure schemas match your Excel file.
 
 **Publish & Run:** Trigger the pipeline to land one CSV per worksheet under **Bronze**.
 
-*ADF pipeline screenshot:*  
-![ADF pipeline](assets/Data%20Factory-1.png)
-
 ## B) Azure Databricks
+
+<img src="azure-online-retail-lakehouse/assets/DataBricks.png" alt="DataBricks">
 
 **Cluster Setup:** Use Databricks Runtime 13.x+ with access to ADLS Gen2 (managed identity or service principal).  
 
-**Import Notebooks:** Upload/sync the scripts from `databricks/`:
-- `00_config.py` – environment variables and storage paths.
-- `01_bronze_ingest.py` – read Bronze CSVs.
-- `02_silver_transform.py` – clean/enforce schema → Silver Delta.
-- `03_gold_analytics.py` – aggregates/joins → Gold Delta.
+**Import Notebooks:** Upload/sync the scripts from `notebooks/`:
+- `OnlineRetail_Silver.ipynb` – clean/enforce schema → Silver Parquet.
+- `OnlineRetail_Gold.ipynb` – aggregates/joins → Gold Delta.
 
-**Run ETL:** Execute in sequence: `00_config` → `01_bronze_ingest` → `02_silver_transform` → `03_gold_analytics`. Validate outputs per layer.
+**Run ETL:** Execute in sequence:  `OnlineRetail_Silver` → `OnlineRetail_Gold`. Validate outputs per layer.
 
 ## C) Azure Synapse Analytics (Serverless SQL)
 
