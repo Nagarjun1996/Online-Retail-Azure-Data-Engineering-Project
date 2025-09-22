@@ -4,7 +4,7 @@
 
 This documentation provides a professional overview of an end-to-end Azure data engineering project. The solution uses **Azure Data Factory (ADF)** to ingest data from an Excel workbook into **Azure Data Lake Storage Gen2 (ADLS Gen2)** as CSV (Bronze layer). **Azure Databricks** then transforms the data into **Delta** format in Silver/Gold layers following the **Medallion** architecture. Finally, **Azure Synapse Analytics (serverless SQL)** exposes the curated Gold data via external tables for ad-hoc SQL queries, and **Power BI** connects to those tables for reporting.
 
-![Architecture](assets/pipeline.png)
+<img src="azure-online-retail-lakehouse/assets/pipeline.png" alt="Pipeline">
 
 ## Dataset
 
