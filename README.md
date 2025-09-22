@@ -40,6 +40,8 @@ Connect Power BI to the Synapse external tables. Using the provided `.pbids` fil
 
 Define consistent storage paths for the **Bronze**, **Silver**, and **Gold** layers across all services (ADF, Databricks, Synapse). Set these base paths once and use them throughout:
 
+<img src="azure-online-retail-lakehouse/assets/DataLake.png" alt="DataLake">
+
 - **Bronze:** `bronze@onlineretail96`  
 - **Silver:** `silver@onlineretail96`  
 - **Gold:** `gold@onlineretail96`
@@ -100,7 +102,7 @@ Ensure schemas match your Excel file.
 
 **Excel → CSV vs. Parquet:** Writing CSV per sheet is more robust for heterogeneous Excel schemas; schema enforcement happens later in Databricks.
 
-**Delta in Silver/Gold:** Use schema enforcement and partitioning (e.g., `year=YYYY/month=MM`) for performance and cost control; enables ACID/time travel/upserts.
+**Parquet in Silver/Gold:** Use schema enforcement and partitioning (e.g., `year=YYYY/month=MM`) for performance and cost control; enables ACID/time travel/upserts.
 
 **Synapse Serverless:** Queries data directly in ADLS; billed by data scanned. Use partition pruning and selective filters.
 
