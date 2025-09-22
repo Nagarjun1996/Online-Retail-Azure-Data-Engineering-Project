@@ -9,20 +9,23 @@ This documentation provides a professional overview of an end-to-end Azure data 
 ## Dataset
 
 The project uses the **Online Retail** dataset from the **UCI Machine Learning Repository**  
-Link: `r params$dataset_url`
+Link: `https://archive.ics.uci.edu/static/public/502/online+retail+ii.zip`
 
-This Excel dataset contains ~541,909 transaction records (December 2010 to December 2011) from a UK online retail store, with fields such as `InvoiceNo`, `StockCode`, `Description`, `Quantity`, `InvoiceDate`, `UnitPrice`, `CustomerID`, and `Country`. The pipeline is designed to work with any Excel file containing multiple sheets (for example, separate **Orders** and **Products** sheets), with minimal configuration changes.
+This Excel dataset contains ~1067371 transaction records (December 2009 to December 2011) from a UK online retail store, with fields such as `InvoiceNo`, `StockCode`, `Description`, `Quantity`, `InvoiceDate`, `UnitPrice`, `CustomerID`, and `Country`. The pipeline is designed to work with any Excel file containing multiple sheets (for example, separate **Year 2009-2010** and **Year 2010-2011** sheets), with minimal configuration changes.
 
 # 1) Project Structure
 
 
 
 
-Each directory corresponds to a different service in the pipeline: `adf/` contains the Azure Data Factory definitions, `databricks/` holds the ETL notebooks (as Python scripts), `synapse/` contains SQL scripts for external objects, and `powerbi/` provides a connection template for Power BI.
+Each directory corresponds to a different service in the pipeline: `assets/` contains the pictures of different stages in the prject, `notebooks/` holds the ETL notebooks (as Python scripts), `synapse/` contains SQL scripts for external objects.
 
 # 2) End-to-End Flow
 
-## Land (ADF)
+<img src="azure-online-retail-lakehouse/assets/Data Factory-1.png" alt="Pipeline">
+
+<img src="azure-online-retail-lakehouse/assets/Data Factory-2.png" alt="Pipeline">
+
 
 Ingest the Excel data into the **Bronze** layer. The ADF pipeline copies each Excel worksheet into ADLS Gen2 as a separate CSV file (Bronze). A combination of **Get Metadata** and **ForEach** (or an index-based **Until** loop) is used to dynamically iterate through each worksheet in the Excel file, ensuring all sheets are processed.
 
