@@ -1,0 +1,60 @@
+{
+  "name": "Excel_to_CSV_ExcelSheets",
+  "properties": {
+    "annotations": [
+      "Generated template"
+    ],
+    "activities": [
+      {
+        "name": "GetSheets",
+        "type": "GetMetadata",
+        "typeProperties": {
+          "dataset": {
+            "referenceName": "DS_Source_Excel",
+            "type": "DatasetReference"
+          },
+          "fieldList": [
+            "structure"
+          ]
+        }
+      },
+      {
+        "name": "ForEachSheet",
+        "type": "ForEach",
+        "typeProperties": {
+          "items": {
+            "value": "@activity('GetSheets').output.structure",
+            "type": "Expression"
+          },
+          "activities": [
+            {
+              "name": "Copy_To_Bronze_CSV",
+              "type": "Copy",
+              "typeProperties": {
+                "source": {
+                  "type": "ExcelSource",
+                  "sheetName": "@item().name"
+                },
+                "sink": {
+                  "type": "DelimitedTextSink"
+                }
+              },
+              "inputs": [
+                {
+                  "referenceName": "DS_Source_Excel",
+                  "type": "DatasetReference"
+                }
+              ],
+              "outputs": [
+                {
+                  "referenceName": "DS_Bronze_CSV",
+                  "type": "DatasetReference"
+                }
+              ]
+            }
+          ]
+        }
+      }
+    ]
+  }
+}

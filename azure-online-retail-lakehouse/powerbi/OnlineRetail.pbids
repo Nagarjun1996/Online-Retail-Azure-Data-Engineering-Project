@@ -1,0 +1,15 @@
+{
+  "version": "0.1",
+  "connections": [
+    {
+      "details": {
+        "protocol": "tds",
+        "address": {
+          "server": "<your-workspace>-ondemand.sql.azuresynapse.net",
+          "database": "onlineretail_serverless"
+        }
+      },
+      "mode": "DirectQuery"
+    }
+  ]
+}

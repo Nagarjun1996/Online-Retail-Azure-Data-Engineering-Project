@@ -1,0 +1,22 @@
+{
+  "name": "DS_Bronze_CSV",
+  "properties": {
+    "linkedServiceName": {
+      "referenceName": "LS_ADLS",
+      "type": "LinkedServiceReference"
+    },
+    "type": "DelimitedText",
+    "typeProperties": {
+      "location": {
+        "type": "AzureBlobFSLocation",
+        "fileSystem": "<container>",
+        "folderPath": "bronze/online_retail/csv"
+      },
+      "firstRowAsHeader": true,
+      "columnDelimiter": ",",
+      "escapeChar": "\\",
+      "quoteChar": "\""
+    },
+    "schema": []
+  }
+}
